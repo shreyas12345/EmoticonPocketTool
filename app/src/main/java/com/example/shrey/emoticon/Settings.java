@@ -25,7 +25,7 @@ public class Settings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        saveButton = (Button)findViewById(R.id.save);
+        saveButton = (Button) findViewById(R.id.save);
         number1 = (EditText) findViewById(R.id.number1);
 
 
@@ -33,62 +33,11 @@ public class Settings extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String stuff = number1.getText().toString();
-
-                Intent intent = new Intent(Settings.this, MainActivity.class);
-                intent.putExtra("phonenumber", stuff);
-                startActivity(intent);
+                Intent intent2 = new Intent(Settings.this, MainActivity.class);
+                intent2.putExtra("phonenumber", stuff);
+                System.out.println("I am here");
+                startActivity(intent2);
             }
         });
-
-
-        ArrayList<String> phoneNumberList = new ArrayList<String>();
-
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String number = number1.getText().toString();
-
-               /* try {
-                    File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/phonenumbers.txt");
-                    if (!file.exists()) {
-                        file.createNewFile();
-                    }
-
-                    FileWriter fileWriter = new FileWriter(file.getName(), true);
-                    BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-                    bufferedWriter.write(number);
-                    bufferedWriter.close();
-
-
-                }catch(Exception e){
-                    e.printStackTrace();
-                }
-
-                */
-
-            }
-        });
-
-        /*
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(Environment.getExternalStorageDirectory()+"phonenumbers.txt"));
-
-            String line = br.readLine();
-
-            while (line != null) {
-                phoneNumberList.add(line);
-            }
-            br.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-        if (phoneNumberList.size()>0) {
-            number1.setText(phoneNumberList.get(0));
-        }
-
-        */
-
     }
 }

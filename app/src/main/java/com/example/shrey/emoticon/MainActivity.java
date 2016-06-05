@@ -15,7 +15,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,8 +39,11 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> values = new ArrayList<String>();
     Button settings;
 
+    TextView modeText;
+
     //  ArrayList<Integer> response = new ArrayList<Integer>();
 
+    String[] modeNames = {"Calculator","Share Answers", "Clock", "Morse Messenger"};
 
     String timeString;
 
@@ -56,6 +62,10 @@ public class MainActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         settings = (Button) findViewById(R.id.button);
+
+        modeText = (TextView)findViewById(R.id.modeText);
+
+        modeText.setText("Mode: " + modeNames[mode]);
 
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
         }
     });
 
+
 }
 
     public int createNumber(ArrayList number) {
@@ -116,19 +127,23 @@ public class MainActivity extends AppCompatActivity {
 
         if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
 
+            String[] modeNames = {"Calculator","Share Answers", "Clock", "Morse Messenger"};
+
             mode++;
+
             if (mode > 3) {
                 mode = 0;
             }
-            String[] modeNames = {"Share Answers", "Clock", "Morse Messenger", "Calculator"};
-            Toast.makeText(MainActivity.this, modeNames[y], Toast.LENGTH_SHORT).show();
-            if (y < 4) {
-                y++;
-            } else {
-                y = 0;
-            }
+            modeText.setText("Mode: " + modeNames[mode]);
 
-            if (y == 0) {
+            //Toast.makeText(MainActivity.this, modeNames[mode], Toast.LENGTH_SHORT).show();
+            //      if (y < 4) {
+            //         y++;
+            //      } else {
+            //          y = 0;
+
+
+            if (mode == 0) {
                 Vibrator v6 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                 v6.vibrate(250);
                 try {
@@ -138,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
-            if (y == 1) {
+            if (mode == 1) {
                 v5.vibrate(100);
                 try {
                     Thread.sleep(450);                 //1000 milliseconds is one second.
@@ -153,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
-            if (y == 2) {
+            if (mode == 2) {
                 v5.vibrate(75);
                 try {
                     Thread.sleep(450);                 //1000 milliseconds is one second.
@@ -175,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
-            if (y == 3) {
+            if (mode == 3) {
                 Vibrator v6 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                 v6.vibrate(250);
                 try {
@@ -207,6 +222,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
+
 
 
         if (mode == 0) {
@@ -340,33 +356,12 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 }
             });
-            parentlayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Vibrator v3 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-                    v3.vibrate(50);
-                    timeCounter = timeCounter + 1;
-                    if (timeCounter >= 10) {
-                        timeCounter = 0;
-                    }
-                }
-            });
-
-            parentlayout.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-                    Vibrator v4 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-                    v4.vibrate(100);
-                    timerList.add(timeCounter);
-                    return true;
-                }
-            });
 
             if (timerList.size() != 0) {
 
                 if ((keyCode == KeyEvent.KEYCODE_VOLUME_UP)) {
                     createNumber(timerList);
-                    com.example.shrey.emoticon.Clock.timer(createNumber(timerList)*1000, getApplicationContext()); //makes the timer in minutes
+                    com.example.shrey.emoticon.Clock.timer(createNumber(timerList) * 1000, getApplicationContext()); //makes the timer in minutes
                     timerList.clear();
                 }
             } else {
@@ -405,35 +400,13 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 }
             });
-            parentlayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Vibrator v3 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-                    v3.vibrate(50);
-                    counter = counter + 1;
-                    if (counter >= 10) {
-                        counter = 0;
-                    }
-                }
-            });
 
-            parentlayout.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-                    Vibrator v4 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-                    v4.vibrate(100);
-                    number.add(counter);
-                    counter = 0;
-                    return true;
-                }
-            });
 
             if ((keyCode == KeyEvent.KEYCODE_VOLUME_UP)) {
                 questionNumber = createNumber(number);
                 sendSMSMessage();
-                number.clear();
+               number.clear();
                 questionNumber = 0;
-
             }
 
             if (keyCode == KeyEvent.KEYCODE_MENU && event.getRepeatCount() == 0) {
@@ -635,7 +608,10 @@ public class MainActivity extends AppCompatActivity {
         String message = "";
         try {
 
+            Bundle extras = getIntent().getExtras();
+            phoneNumber = extras.getString("phonenumber");
             String phoneNo = phoneNumber;
+
             if (multiplechoice == 0) {
                 message = Integer.toString(questionNumber) + "-- " + Float.toString(send);
             } else if (multiplechoice == 1) {
@@ -722,7 +698,7 @@ public class MainActivity extends AppCompatActivity {
         try {
 
            Bundle extras = getIntent().getExtras();
-            phoneNumber = extras.getString("phonenumbers");
+            phoneNumber = extras.getString("phonenumber");
             String phoneNo = phoneNumber;
             System.out.println(values);
             String message = toEnglish(values);
@@ -734,7 +710,7 @@ public class MainActivity extends AppCompatActivity {
             smsManager.sendTextMessage(phoneNo, null, message, null, null);
             Toast.makeText(getApplicationContext(), "SMS sent.", Toast.LENGTH_LONG).show();
         } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "Please Enter Your Numbers in the Settings.", Toast.LENGTH_LONG).show();
+           // Toast.makeText(getApplicationContext(), "Please Enter Your Numbers in the Settings.", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
 

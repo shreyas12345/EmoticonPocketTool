@@ -19,7 +19,9 @@
         android:layout_marginBottom="84dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="32dp"
+        android:layout_marginEnd="32dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -36,9 +38,12 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save numbers"
+        android:text="Save Numbers"
         android:id="@+id/save"
-        android:layout_below="@+id/number1"
+        android:layout_alignTop="@+id/guide"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="45dp"
+        android:layout_marginStart="45dp" />
+
 </RelativeLayout>

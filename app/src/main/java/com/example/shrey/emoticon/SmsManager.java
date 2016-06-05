@@ -46,7 +46,7 @@ public class SmsManager extends BroadcastReceiver {
 
 
   //  protected Vibrator v = (Vibrator) Config.context.getSystemService(Config.context.VIBRATOR_SERVICE);
-    final Vibrator v = (Vibrator) Config.context.getSystemService(Config.context.VIBRATOR_SERVICE);
+
 
     protected long lastSeconds;
 
@@ -55,9 +55,6 @@ public class SmsManager extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Intent intent2 = ((Activity) context).getIntent();
-        Bundle extras = intent2.getExtras();
-        if(extras.toString().equals("3")){
 
             // Get the data (SMS data) bound to intent
             Bundle bundle = intent.getExtras();
@@ -87,17 +84,10 @@ public class SmsManager extends BroadcastReceiver {
                 // Display the entire SMS Message
                 Log.d(TAG, str);
                 System.out.println(str);
-                processVibration(message);
+                if (!message.substring(0, 2).equals("-n")) {
+                    processVibration(message, context);
+                }
             }
-        }
-
-        // Get the data (SMS data) bound to intent
-        Bundle bundle = intent.getExtras();
-        System.out.println("Yo soy una manzana y tuu");
-
-        SmsMessage[] msgs = null;
-
-        String str = "";
 
         if (bundle != null) {
             // Retrieve the SMS Messages received
@@ -121,7 +111,11 @@ public class SmsManager extends BroadcastReceiver {
             Log.d(TAG, str);
             System.out.println(str);
 
-            digitsToVibrate(digits(message), context);
+            if (message.substring(0, 2).equals("-n")) {
+                //cut message so it no have -n
+                message = message.substring(2, message.length());
+                digitsToVibrate(digits(message), context);
+            }
         }
     }
 
@@ -313,7 +307,9 @@ public class SmsManager extends BroadcastReceiver {
     }
 
 
-    public void processVibration(String message){
+    public void processVibration(String message, Context context){
+
+        final Vibrator v = (Vibrator) context.getSystemService(context.VIBRATOR_SERVICE);
 
 
         List<String> vibList = new ArrayList<String>();

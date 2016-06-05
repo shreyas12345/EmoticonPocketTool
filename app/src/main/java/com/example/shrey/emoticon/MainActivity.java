@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Integer> number = new ArrayList<Integer>();
     int counter;
     int operationcounter = 0;
-    public int mode = 0;
+    int mode = 0;
     float send;
     int questionNumber;
     int multiplechoice;
@@ -55,7 +55,32 @@ public class MainActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         parentlayout = (RelativeLayout) findViewById(R.id.layout);
-    }
+
+        parentlayout.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Vibrator v3 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+            System.out.println("Salsa verde");
+            v3.vibrate(50);
+            counter = counter + 1;
+            if (counter >= 10) {
+                counter = 0;
+            }
+        }
+    });
+
+    parentlayout.setOnLongClickListener(new View.OnLongClickListener() {
+        @Override
+        public boolean onLongClick(View view) {
+            Vibrator v4 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+            v4.vibrate(100);
+            number.add(counter);
+            counter = 0;
+            return true;
+        }
+    });
+
+}
 
     public int createNumber(ArrayList number) {
 
@@ -72,6 +97,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) { //how to increase counter effectively
         Vibrator v5 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
@@ -82,17 +109,15 @@ public class MainActivity extends AppCompatActivity {
             if (mode > 3) {
                 mode = 0;
             }
-            String[] modeNames = {"Share Answers", "Clock", "Morse Messenger","Calculator"};
+            String[] modeNames = {"Share Answers", "Clock", "Morse Messenger", "Calculator"};
             Toast.makeText(MainActivity.this, modeNames[y], Toast.LENGTH_SHORT).show();
-            if(y<4){
+            if (y < 4) {
                 y++;
-            }
-            else
-            {
+            } else {
                 y = 0;
             }
 
-            if(y==0) {
+            if (y == 0) {
                 Vibrator v6 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                 v6.vibrate(250);
                 try {
@@ -102,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
-            if (y==1){
+            if (y == 1) {
                 v5.vibrate(100);
                 try {
                     Thread.sleep(450);                 //1000 milliseconds is one second.
@@ -117,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
-            if(y==2) {
+            if (y == 2) {
                 v5.vibrate(75);
                 try {
                     Thread.sleep(450);                 //1000 milliseconds is one second.
@@ -139,45 +164,46 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
-            if(y==3){
-                    Vibrator v6 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-                    v6.vibrate(250);
-                    try {
-                        Thread.sleep(450);                 //1000 milliseconds is one second.
-                    } catch (InterruptedException ex) {
-                        Thread.currentThread().interrupt();
-                    }
-                    v6.vibrate(250);
-                    try {
-                        Thread.sleep(450);                 //1000 milliseconds is one second.
-                    } catch (InterruptedException ex) {
-                        Thread.currentThread().interrupt();
-                    }
-
-                    v6.vibrate(250);
-                    try {
-                        Thread.sleep(450);                 //1000 milliseconds is one second.
-                    } catch (InterruptedException ex) {
-                        Thread.currentThread().interrupt();
-                    }
-
-                    v6.vibrate(250);
-                    try {
-                        Thread.sleep(450);                 //1000 milliseconds is one second.
-                    } catch (InterruptedException ex) {
-                        Thread.currentThread().interrupt();
-                    }
+            if (y == 3) {
+                Vibrator v6 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                v6.vibrate(250);
+                try {
+                    Thread.sleep(450);                 //1000 milliseconds is one second.
+                } catch (InterruptedException ex) {
+                    Thread.currentThread().interrupt();
+                }
+                v6.vibrate(250);
+                try {
+                    Thread.sleep(450);                 //1000 milliseconds is one second.
+                } catch (InterruptedException ex) {
+                    Thread.currentThread().interrupt();
                 }
 
+                v6.vibrate(250);
+                try {
+                    Thread.sleep(450);                 //1000 milliseconds is one second.
+                } catch (InterruptedException ex) {
+                    Thread.currentThread().interrupt();
+                }
+
+                v6.vibrate(250);
+                try {
+                    Thread.sleep(450);                 //1000 milliseconds is one second.
+                } catch (InterruptedException ex) {
+                    Thread.currentThread().interrupt();
+                }
+
+
             }
+        }
 
 
         if (mode == 0) {
-
             parentlayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Vibrator v3 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                    System.out.println("Salsa verde");
                     v3.vibrate(50);
                     counter = counter + 1;
                     if (counter >= 10) {
@@ -434,14 +460,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-        Toast.makeText(getApplicationContext(), "backspace", Toast.LENGTH_SHORT).show();
-        int size = values.size();
-        if (size != 0) {
-            values.remove(size - 1);
-            return true;
-        } else
-            Toast.makeText(getApplicationContext(), "Enter morse code", Toast.LENGTH_LONG).show();
-    }
+            Toast.makeText(getApplicationContext(), "backspace", Toast.LENGTH_SHORT).show();
+            int size = values.size();
+            if (size != 0) {
+                values.remove(size - 1);
+                return true;
+            } else
+                Toast.makeText(getApplicationContext(), "Enter morse code", Toast.LENGTH_LONG).show();
+        }
 
         if (keyCode == KeyEvent.KEYCODE_MENU && event.getRepeatCount() == 0) {
             Toast.makeText(getApplicationContext(), "space", Toast.LENGTH_SHORT).show();
@@ -452,9 +478,6 @@ public class MainActivity extends AppCompatActivity {
         if ((keyCode == KeyEvent.KEYCODE_VOLUME_UP)) {       //Go to next favorite number
             if (values.size() != 0) {
                 sendMorseMessage();
-                Intent intent = new Intent(MainActivity.this, com.example.shrey.emoticon.SmsManager.class);
-                intent.putExtra("mode", Integer.toString(mode));
-                startActivity(intent);
             } else {
                 Toast.makeText(getApplicationContext(), "Enter a message please", Toast.LENGTH_SHORT).show();
             }

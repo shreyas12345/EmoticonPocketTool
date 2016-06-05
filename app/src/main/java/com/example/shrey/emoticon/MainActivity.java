@@ -351,7 +351,7 @@ public class MainActivity extends AppCompatActivity {
                 public boolean onLongClick(View view) {
                     Vibrator v4 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                     v4.vibrate(100);
-                    number.add(counter);
+                    timerList.add(counter);
                     counter = 0;
                     return true;
                 }

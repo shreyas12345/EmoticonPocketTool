@@ -1,11 +1,13 @@
 package com.example.shrey.emoticon;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.*;
+import android.telephony.SmsManager;
 import android.text.InputFilter;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -16,13 +18,14 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     RelativeLayout parentlayout;
     ArrayList<Integer> number = new ArrayList<Integer>();
     int counter;
     int operationcounter = 0;
-    int mode = 0;
+    public int mode = 0;
     float send;
     int questionNumber;
     int multiplechoice;
@@ -30,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     String phoneNumber;
     ArrayList<Integer> timerList = new ArrayList<Integer>();
     int timeCounter = 0;
+    private ArrayList<String> values = new ArrayList<String>();
 
     //  ArrayList<Integer> response = new ArrayList<Integer>();
 
@@ -51,29 +55,6 @@ public class MainActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         parentlayout = (RelativeLayout) findViewById(R.id.layout);
-
-        parentlayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Vibrator v3 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-                v3.vibrate(50);
-                counter = counter + 1;
-                if (counter >= 10) {
-                    counter = 0;
-                }
-            }
-        });
-
-        parentlayout.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                Vibrator v4 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-                v4.vibrate(100);
-                number.add(counter);
-                counter = 0;
-                return true;
-            }
-        });
     }
 
     public int createNumber(ArrayList number) {
@@ -96,13 +77,14 @@ public class MainActivity extends AppCompatActivity {
         Vibrator v5 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
         if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
+
             mode++;
-            if (mode > 2) {
+            if (mode > 3) {
                 mode = 0;
             }
-            String[] modeNames = {"Share Answers", "Clock", "Calculator"};
+            String[] modeNames = {"Share Answers", "Clock", "Morse Messenger","Calculator"};
             Toast.makeText(MainActivity.this, modeNames[y], Toast.LENGTH_SHORT).show();
-            if(y<2){
+            if(y<4){
                 y++;
             }
             else
@@ -156,9 +138,64 @@ public class MainActivity extends AppCompatActivity {
                 }
 
             }
-        }
+
+            if(y==3){
+                    Vibrator v6 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                    v6.vibrate(250);
+                    try {
+                        Thread.sleep(450);                 //1000 milliseconds is one second.
+                    } catch (InterruptedException ex) {
+                        Thread.currentThread().interrupt();
+                    }
+                    v6.vibrate(250);
+                    try {
+                        Thread.sleep(450);                 //1000 milliseconds is one second.
+                    } catch (InterruptedException ex) {
+                        Thread.currentThread().interrupt();
+                    }
+
+                    v6.vibrate(250);
+                    try {
+                        Thread.sleep(450);                 //1000 milliseconds is one second.
+                    } catch (InterruptedException ex) {
+                        Thread.currentThread().interrupt();
+                    }
+
+                    v6.vibrate(250);
+                    try {
+                        Thread.sleep(450);                 //1000 milliseconds is one second.
+                    } catch (InterruptedException ex) {
+                        Thread.currentThread().interrupt();
+                    }
+                }
+
+            }
+
 
         if (mode == 0) {
+
+            parentlayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Vibrator v3 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                    v3.vibrate(50);
+                    counter = counter + 1;
+                    if (counter >= 10) {
+                        counter = 0;
+                    }
+                }
+            });
+
+            parentlayout.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    Vibrator v4 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                    v4.vibrate(100);
+                    number.add(counter);
+                    counter = 0;
+                    return true;
+                }
+            });
 
             if ((keyCode == KeyEvent.KEYCODE_VOLUME_UP)) {
                 if (number.size() != 0) {
@@ -249,6 +286,28 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     Vibrator v3 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                     v3.vibrate(50);
+                    counter = counter + 1;
+                    if (counter >= 10) {
+                        counter = 0;
+                    }
+                }
+            });
+
+            parentlayout.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    Vibrator v4 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                    v4.vibrate(100);
+                    number.add(counter);
+                    counter = 0;
+                    return true;
+                }
+            });
+            parentlayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Vibrator v3 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                    v3.vibrate(50);
                     timeCounter = timeCounter + 1;
                     if (timeCounter >= 10) {
                         timeCounter = 0;
@@ -309,6 +368,28 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 }
             });
+            parentlayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Vibrator v3 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                    v3.vibrate(50);
+                    counter = counter + 1;
+                    if (counter >= 10) {
+                        counter = 0;
+                    }
+                }
+            });
+
+            parentlayout.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    Vibrator v4 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                    v4.vibrate(100);
+                    number.add(counter);
+                    counter = 0;
+                    return true;
+                }
+            });
 
             if ((keyCode == KeyEvent.KEYCODE_VOLUME_UP)) {
                 questionNumber = createNumber(number);
@@ -326,6 +407,57 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
 
+        }
+
+        if(mode == 3){ //Morse Code Messenger
+            parentlayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Vibrator v7 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                    values.add(".");
+                    Toast.makeText(getApplicationContext(), "dot", Toast.LENGTH_SHORT).show();
+                    v7.vibrate(20);
+                }
+            });
+
+            parentlayout.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    Vibrator v8 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                    Toast.makeText(getApplicationContext(), "dash", Toast.LENGTH_SHORT).show();
+                    values.add("-");
+                    System.out.println(values);
+                    v8.vibrate(40);
+                    return true;
+                }
+            });
+        }
+
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+        Toast.makeText(getApplicationContext(), "backspace", Toast.LENGTH_SHORT).show();
+        int size = values.size();
+        if (size != 0) {
+            values.remove(size - 1);
+            return true;
+        } else
+            Toast.makeText(getApplicationContext(), "Enter morse code", Toast.LENGTH_LONG).show();
+    }
+
+        if (keyCode == KeyEvent.KEYCODE_MENU && event.getRepeatCount() == 0) {
+            Toast.makeText(getApplicationContext(), "space", Toast.LENGTH_SHORT).show();
+            values.add("/");
+            return true;
+        }
+
+        if ((keyCode == KeyEvent.KEYCODE_VOLUME_UP)) {       //Go to next favorite number
+            if (values.size() != 0) {
+                sendMorseMessage();
+                Intent intent = new Intent(MainActivity.this, com.example.shrey.emoticon.SmsManager.class);
+                intent.putExtra("mode", Integer.toString(mode));
+                startActivity(intent);
+            } else {
+                Toast.makeText(getApplicationContext(), "Enter a message please", Toast.LENGTH_SHORT).show();
+            }
         }
 
         return true;
@@ -492,12 +624,6 @@ public class MainActivity extends AppCompatActivity {
                 message = Integer.toString(questionNumber) + "--" + "E";
                 multiplechoice = 0;
             }
-
-
-
-
-
-
             android.telephony.SmsManager smsManager = android.telephony.SmsManager.getDefault();
             smsManager.sendTextMessage(phoneNo, null, message, null, null);
             Toast.makeText(getApplicationContext(), "SMS sent.", Toast.LENGTH_SHORT).show();
@@ -505,6 +631,78 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+
+    }
+
+    public static String[] morse = {".-", "-...", "-.-.", "-..", ".", "..-.",
+            "--.", "....", "..", ".---", "-.-", ".-..",
+            "--", "-.", "---", ".--.", "--.-", ".-.",
+            "...", "-", "..-", "...-", ".--", "-..-",
+            "-.--", "--..", "/", ".-.-.-", "--..--", "---...",
+            "..--..", ".----.", ".-..-.", "-----", ".----", "..---",
+            "...--", "....-", ".....", "-....", "--...", "---..", "----."};
+    public static String[] text = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L",
+            "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y",
+            "Z", " ", ".", ",", ":", "?", "'", "\"", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+
+    public static String toEnglish(List<String> morseText) {
+
+        List<String> newMorseText = new ArrayList<String>();
+
+        String word = "";
+        for (int i = 0; i < morseText.size(); i++) {
+
+            if (morseText.get(i) != "/") {
+                word += morseText.get(i);
+                System.out.println(word);
+
+            }
+            if (morseText.get(i).equals("/") || i == morseText.size() - 1) {
+                newMorseText.add(word);
+                word = "";
+            }
+        }
+
+        morseText = newMorseText;
+
+        StringBuilder sb = new StringBuilder();
+        String finalMessage = "";
+
+        for (int i = 0; i < morseText.size(); i++) {       //go through user inputted morse code
+            for (int j = 0; j < morse.length; j++) {
+                if (morseText.get(i).equals(morse[j])) {
+                    sb.append(text[j]);
+                }
+            }
+        }
+
+        finalMessage = sb.toString();
+
+        return finalMessage;
+    }
+
+
+    protected void sendMorseMessage() {
+        Log.i("Send SMS", "");
+        //String phoneNo = txtphoneNo.getText().toString();
+        try {
+
+            String phoneNo = "7325994131";
+            System.out.println(values);
+            String message = toEnglish(values);
+            System.out.println(message);
+
+
+
+            android.telephony.SmsManager smsManager = SmsManager.getDefault();
+            smsManager.sendTextMessage(phoneNo, null, message, null, null);
+            Toast.makeText(getApplicationContext(), "SMS sent.", Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "Please Enter Your Numbers in the Settings.", Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
+
+        values.clear();
 
     }
 

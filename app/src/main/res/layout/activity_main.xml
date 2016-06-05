@@ -11,4 +11,12 @@
     tools:context="com.example.shrey.emoticon.MainActivity"
     android:background="@color/colorAccent">
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Settings"
+        android:id="@+id/button"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp" />
 </RelativeLayout>

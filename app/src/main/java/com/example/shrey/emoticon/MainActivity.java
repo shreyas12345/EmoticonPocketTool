@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Integer> timerList = new ArrayList<Integer>();
     int timeCounter = 0;
     private ArrayList<String> values = new ArrayList<String>();
+    Button settings;
 
     //  ArrayList<Integer> response = new ArrayList<Integer>();
 
@@ -53,6 +54,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        settings = (Button) findViewById(R.id.button);
+
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, Settings.class);
+                startActivity(intent);
+            }
+        });
 
         parentlayout = (RelativeLayout) findViewById(R.id.layout);
 
@@ -710,7 +721,9 @@ public class MainActivity extends AppCompatActivity {
         //String phoneNo = txtphoneNo.getText().toString();
         try {
 
-            String phoneNo = "7325994131";
+           Bundle extras = getIntent().getExtras();
+            phoneNumber = extras.getString("phonenumbers");
+            String phoneNo = phoneNumber;
             System.out.println(values);
             String message = toEnglish(values);
             System.out.println(message);

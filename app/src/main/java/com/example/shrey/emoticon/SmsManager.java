@@ -328,7 +328,7 @@ public class SmsManager extends BroadcastReceiver {
                 v.vibrate(500);
 
                 try {
-                    Thread.sleep(500);                 //1000 milliseconds is one second.
+                    Thread.sleep(1000);                 //was 500
                 } catch(InterruptedException ex) {
                     Thread.currentThread().interrupt();
                 }

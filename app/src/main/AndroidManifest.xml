@@ -31,7 +31,11 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".Settings"></activity>
+        <activity android:name=".Settings" />
+        <activity
+            android:name=".Manual"
+            android:label="@string/title_activity_manual"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

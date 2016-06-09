@@ -653,8 +653,6 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
 
     public static String[] morse = {".-", "-...", "-.-.", "-..", ".", "..-.",
@@ -678,7 +676,6 @@ public class MainActivity extends AppCompatActivity {
             if (morseText.get(i) != "/") {
                 word += morseText.get(i);
                 System.out.println(word);
-
             }
             if (morseText.get(i).equals("/") || i == morseText.size() - 1) {
                 newMorseText.add(word);

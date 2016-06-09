@@ -20,10 +20,7 @@ public class Manual extends AppCompatActivity {
 
         final VideoView videoView =
                 (VideoView) findViewById(R.id.videoView);
-
-        videoView.setVideoPath(
-                "http://www.ebookfrenzy.com/android_book/movie.mp4");
-
+        videoView.setVideoPath("@src/main/assets/");
         videoView.start();
 
     }

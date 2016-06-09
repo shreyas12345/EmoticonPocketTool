@@ -198,7 +198,8 @@ public class MainActivity extends AppCompatActivity {
                         if (operationcounter == 1) {
                             send = addNumbers(firstNumber, secondNumber);
 
-                            digitsToVibrate(digits(addNumbers(firstNumber, secondNumber)));
+                        //    digitsToVibrate(digits(addNumbers(firstNumber, secondNumber)));
+                            digitsToVibrate(digits(firstNumber+secondNumber));
                             number.clear();
                             firstNumber = 0;
                         }

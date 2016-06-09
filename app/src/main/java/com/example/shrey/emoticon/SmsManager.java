@@ -51,6 +51,8 @@ public class  SmsManager extends BroadcastReceiver {
     protected long lastSeconds;
 
 
+    static String answerSign = "#";
+
 
 
     @Override
@@ -84,40 +86,22 @@ public class  SmsManager extends BroadcastReceiver {
                 // Display the entire SMS Message
                 Log.d(TAG, str);
                 System.out.println(str);
-                if (!message.substring(0, 2).equals("-n")) {
+                if (!message.substring(0, answerSign.length()).equals(answerSign)) {
                     processVibration(message, context);
                 }
-            }
-
-        if (bundle != null) {
-            // Retrieve the SMS Messages received
-            Object[] pdus = (Object[]) bundle.get("pdus");
-            msgs = new SmsMessage[pdus.length];
-
-            // For every SMS message received
-            for (int i=0; i < msgs.length; i++) {
-                // Convert Object array
-                msgs[i] = SmsMessage.createFromPdu((byte[]) pdus[i]);
-                // Sender's phone number
-                str += "SMS from " + msgs[i].getOriginatingAddress() + " : ";
-                // Fetch the text message
-                str += msgs[i].getMessageBody().toString();
-                message = msgs[i].getMessageBody().toString();
-                // Newline <img src="http://codetheory.in/wp-includes/images/smilies/simple-smile.png" alt=":-)" class="wp-smiley" style="height: 1em; max-height: 1em;">
-                str += "\n";
             }
 
             // Display the entire SMS Message
             Log.d(TAG, str);
             System.out.println(str);
 
-            if (message.substring(0, 2).equals("-n")) {
+            if (message.substring(0, answerSign.length()).equals(answerSign)) {
                 //cut message so it no have -n
-                message = message.substring(2, message.length());
+                message = message.substring(answerSign.length(), message.length());
+                message = message.replaceAll(" ", "");
                 digitsToVibrate(digits(message), context);
             }
         }
-    }
 
 
     public ArrayList<Integer> digits(String numberString){
@@ -344,7 +328,7 @@ public class  SmsManager extends BroadcastReceiver {
                 v.vibrate(500);
 
                 try {
-                    Thread.sleep(500);                 //1000 milliseconds is one second.
+                    Thread.sleep(1000);                 //was 500
                 } catch(InterruptedException ex) {
                     Thread.currentThread().interrupt();
                 }

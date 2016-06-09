@@ -55,6 +55,14 @@ public class MainActivity extends AppCompatActivity {
     float firstNumber;
     float secondNumber;
 
+    int shortTapLength = 50;
+    int longTapLength = 100;
+    int switchingModesLength = 75;
+    int dotLength = 50;
+    int dashLength = 500;
+    int decimalLength = 25;
+    int timerEndLength = 5000;
+
     @Override
     protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,29 +88,26 @@ public class MainActivity extends AppCompatActivity {
         parentlayout.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            Vibrator v3 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-            System.out.println("Salsa verde");
-            v3.vibrate(50);
+            vibrate(shortTapLength, 0);
             counter = counter + 1;
             if (counter >= 10) {
                 counter = 0;
             }
         }
-    });
+        });
 
-    parentlayout.setOnLongClickListener(new View.OnLongClickListener() {
+        parentlayout.setOnLongClickListener(new View.OnLongClickListener() {
         @Override
         public boolean onLongClick(View view) {
-            Vibrator v4 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-            v4.vibrate(100);
+            vibrate(longTapLength, 0);
             number.add(counter);
             counter = 0;
             return true;
         }
-    });
+        });
 
 
-}
+    }
 
     public int createNumber(ArrayList number) {
 
@@ -136,102 +141,31 @@ public class MainActivity extends AppCompatActivity {
             }
             modeText.setText("Mode: " + modeNames[mode]);
 
-            //Toast.makeText(MainActivity.this, modeNames[mode], Toast.LENGTH_SHORT).show();
-            //      if (y < 4) {
-            //         y++;
-            //      } else {
-            //          y = 0;
-
-
             if (mode == 0) {
-                Vibrator v6 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-                v6.vibrate(250);
-                try {
-                    Thread.sleep(450);                 //1000 milliseconds is one second.
-                } catch (InterruptedException ex) {
-                    Thread.currentThread().interrupt();
-                }
+                vibrate(switchingModesLength, 450);
             }
-
             if (mode == 1) {
-                v5.vibrate(100);
-                try {
-                    Thread.sleep(450);                 //1000 milliseconds is one second.
-                } catch (InterruptedException ex) {
-                    Thread.currentThread().interrupt();
-                }
-                v5.vibrate(100);
-                try {
-                    Thread.sleep(450);                 //1000 milliseconds is one second.
-                } catch (InterruptedException ex) {
-                    Thread.currentThread().interrupt();
-                }
+                vibrate(switchingModesLength, 450);
+                vibrate(switchingModesLength, 450);
             }
-
             if (mode == 2) {
-                v5.vibrate(75);
-                try {
-                    Thread.sleep(450);                 //1000 milliseconds is one second.
-                } catch (InterruptedException ex) {
-                    Thread.currentThread().interrupt();
-                }
-                v5.vibrate(75);
-                try {
-                    Thread.sleep(450);                 //1000 milliseconds is one second.
-                } catch (InterruptedException ex) {
-                    Thread.currentThread().interrupt();
-                }
-                v5.vibrate(75);
-                try {
-                    Thread.sleep(450);                 //1000 milliseconds is one second.
-                } catch (InterruptedException ex) {
-                    Thread.currentThread().interrupt();
-                }
-
+                vibrate(switchingModesLength, 450);
+                vibrate(switchingModesLength, 450);
+                vibrate(switchingModesLength, 450);
             }
-
             if (mode == 3) {
-                Vibrator v6 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-                v6.vibrate(250);
-                try {
-                    Thread.sleep(450);                 //1000 milliseconds is one second.
-                } catch (InterruptedException ex) {
-                    Thread.currentThread().interrupt();
-                }
-                v6.vibrate(250);
-                try {
-                    Thread.sleep(450);                 //1000 milliseconds is one second.
-                } catch (InterruptedException ex) {
-                    Thread.currentThread().interrupt();
-                }
-
-                v6.vibrate(250);
-                try {
-                    Thread.sleep(450);                 //1000 milliseconds is one second.
-                } catch (InterruptedException ex) {
-                    Thread.currentThread().interrupt();
-                }
-
-                v6.vibrate(250);
-                try {
-                    Thread.sleep(450);                 //1000 milliseconds is one second.
-                } catch (InterruptedException ex) {
-                    Thread.currentThread().interrupt();
-                }
-
-
+                vibrate(switchingModesLength, 450);
+                vibrate(switchingModesLength, 450);
+                vibrate(switchingModesLength, 450);
+                vibrate(switchingModesLength, 450);
             }
         }
-
-
 
         if (mode == 0) {
             parentlayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Vibrator v3 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-                    System.out.println("Salsa verde");
-                    v3.vibrate(50);
+                    vibrate(50, 0);
                     counter = counter + 1;
                     if (counter >= 10) {
                         counter = 0;
@@ -263,28 +197,15 @@ public class MainActivity extends AppCompatActivity {
                         number.clear();
 
                         if (operationcounter == 1) {
-                            addNumbers(firstNumber, secondNumber);
                             send = addNumbers(firstNumber, secondNumber);
-                            Toast.makeText(getApplicationContext(), Float.toString(addNumbers(firstNumber, secondNumber)), Toast.LENGTH_SHORT).show();
-                            try {
-                                Thread.sleep(600);                 //1000 milliseconds is one second.
-                            } catch (InterruptedException ex) {
-                                Thread.currentThread().interrupt();
-                            }
+
                             digitsToVibrate(digits(addNumbers(firstNumber, secondNumber)));
                             number.clear();
                             firstNumber = 0;
                         }
 
                         if (operationcounter == 2) {
-                            subNumbers(firstNumber, secondNumber);
                             send = subNumbers(firstNumber, secondNumber);
-                            Toast.makeText(getApplicationContext(), Float.toString(subNumbers(firstNumber, secondNumber)), Toast.LENGTH_SHORT).show();
-                            try {
-                                Thread.sleep(600);                 //1000 milliseconds is one second.
-                            } catch (InterruptedException ex) {
-                                Thread.currentThread().interrupt();
-                            }
                             digitsToVibrate(digits(subNumbers(firstNumber, secondNumber)));
                             number.clear();
                             firstNumber = 0;
@@ -293,12 +214,6 @@ public class MainActivity extends AppCompatActivity {
                         if (operationcounter == 3) {
                             multiplyNumbers(firstNumber, secondNumber);
                             send = multiplyNumbers(firstNumber, secondNumber);
-                            Toast.makeText(getApplicationContext(), Float.toString(multiplyNumbers(firstNumber, secondNumber)), Toast.LENGTH_SHORT).show();
-                            try {
-                                Thread.sleep(600);                 //1000 milliseconds is one second.
-                            } catch (InterruptedException ex) {
-                                Thread.currentThread().interrupt();
-                            }
                             digitsToVibrate(digits(multiplyNumbers(firstNumber, secondNumber)));
                             number.clear();
                             firstNumber = 0;
@@ -307,12 +222,6 @@ public class MainActivity extends AppCompatActivity {
                         if (operationcounter == 4) {
                             divideNumbers(firstNumber, secondNumber);
                             send = divideNumbers(firstNumber, secondNumber);
-                            Toast.makeText(getApplicationContext(), Float.toString(divideNumbers(firstNumber, secondNumber)), Toast.LENGTH_SHORT).show();
-                            try {
-                                Thread.sleep(600);                 //1000 milliseconds is one second.
-                            } catch (InterruptedException ex) {
-                                Thread.currentThread().interrupt();
-                            }
                             digitsToVibrate(digits(divideNumbers(firstNumber, secondNumber)));
                             number.clear();
                             firstNumber = 0;
@@ -337,8 +246,7 @@ public class MainActivity extends AppCompatActivity {
             parentlayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Vibrator v3 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-                    v3.vibrate(50);
+                    vibrate(50, 0);
                     counter = counter + 1;
                     if (counter >= 10) {
                         counter = 0;
@@ -349,8 +257,7 @@ public class MainActivity extends AppCompatActivity {
             parentlayout.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    Vibrator v4 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-                    v4.vibrate(100);
+                    vibrate(50, 0);
                     timerList.add(counter);
                     counter = 0;
                     return true;
@@ -381,8 +288,7 @@ public class MainActivity extends AppCompatActivity {
             parentlayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Vibrator v3 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-                    v3.vibrate(50);
+                    vibrate(50, 0);
                     counter = counter + 1;
                     if (counter >= 10) {
                         counter = 0;
@@ -393,14 +299,12 @@ public class MainActivity extends AppCompatActivity {
             parentlayout.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    Vibrator v4 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-                    v4.vibrate(100);
+                    vibrate(100, 0);
                     number.add(counter);
                     counter = 0;
                     return true;
                 }
             });
-
 
             if ((keyCode == KeyEvent.KEYCODE_VOLUME_UP)) {
                 questionNumber = createNumber(number);
@@ -426,18 +330,16 @@ public class MainActivity extends AppCompatActivity {
                     Vibrator v7 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                     values.add(".");
                     Toast.makeText(getApplicationContext(), "dot", Toast.LENGTH_SHORT).show();
-                    v7.vibrate(20);
+                    vibrate(20, 0);
                 }
             });
 
             parentlayout.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    Vibrator v8 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-                    Toast.makeText(getApplicationContext(), "dash", Toast.LENGTH_SHORT).show();
                     values.add("-");
                     System.out.println(values);
-                    v8.vibrate(40);
+                    vibrate(40, 0);
                     return true;
                 }
             });
@@ -496,36 +398,17 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < response.size(); i++){
             if ((int)response.get(i)==-1){
                 //Vibrate for negative sign
-                v5.vibrate(1000);
-                try {
-                    Thread.sleep(500);                 //1000 milliseconds is one second.
-                } catch (InterruptedException ex) {
-                    Thread.currentThread().interrupt();
-                }
+                vibrate(1000, 500);
             }
             if((int)response.get(i)==-2){
-                v5.vibrate(50);
-                try {
-                    Thread.sleep(500);                 //1000 milliseconds is one second.
-                } catch (InterruptedException ex) {
-                    Thread.currentThread().interrupt();
-                }
+                vibrate(50, 500);
             }
             else{
                 for (int k = 0; k < (int)response.get(i); k++){
-                    v5.vibrate(300);
-                    try {
-                        Thread.sleep(500);                 //1000 milliseconds is one second.
-                    } catch (InterruptedException ex) {
-                        Thread.currentThread().interrupt();
-                    }
+                    vibrate(300, 500);
                 }
             }
-            try {
-                Thread.sleep(1000);                 //1000 milliseconds is one second.
-            } catch (InterruptedException ex) {
-                Thread.currentThread().interrupt();
-            }
+            vibrate(0, 1000);
         }
     }
 
@@ -575,28 +458,14 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < 5; i++){
 //            System.out.println(timeList.get(i));
             if (timeList.get(i)==-1){
-                v.vibrate(500);
-                try {
-                    Thread.sleep(500);                 //1000 milliseconds is one second.
-                } catch (InterruptedException ex) {
-                    Thread.currentThread().interrupt();
-                }
+                vibrate(500, 500);
             }
             else{
                 for (int k = 0; k < timeList.get(i); k++){
-                    v.vibrate(100);
-                    try {
-                        Thread.sleep(500);                 //1000 milliseconds is one second.
-                    } catch (InterruptedException ex) {
-                        Thread.currentThread().interrupt();
-                    }
+                    vibrate(100, 500);
                 }
             }
-            try {
-                Thread.sleep(500);                 //1000 milliseconds is one second.
-            } catch (InterruptedException ex) {
-                Thread.currentThread().interrupt();
-            }
+            vibrate(0, 500);
         }
 
 
@@ -716,6 +585,16 @@ public class MainActivity extends AppCompatActivity {
 
         values.clear();
 
+    }
+
+    public void vibrate(int length, int threadLength){
+        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        v.vibrate(length);
+        try {
+            Thread.sleep(threadLength);                 //1000 milliseconds is one second.
+        } catch (InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
     }
 
 }

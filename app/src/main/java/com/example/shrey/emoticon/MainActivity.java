@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
     float secondNumber;
 
     int shortTapLength = 50;
-    int longTapLength = 100;
+    int longTapLength = 50;
     int switchingModesLength = 75;
     int dotLength = 50;
     int dashLength = 500;
@@ -165,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
             parentlayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    vibrate(50, 0);
+                    vibrate(shortTapLength, 0);
                     counter = counter + 1;
                     if (counter >= 10) {
                         counter = 0;
@@ -176,8 +176,7 @@ public class MainActivity extends AppCompatActivity {
             parentlayout.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    Vibrator v4 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-                    v4.vibrate(100);
+                    vibrate(longTapLength, 0);
                     number.add(counter);
                     counter = 0;
                     return true;
@@ -246,7 +245,7 @@ public class MainActivity extends AppCompatActivity {
             parentlayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    vibrate(50, 0);
+                    vibrate(shortTapLength, 0);
                     counter = counter + 1;
                     if (counter >= 10) {
                         counter = 0;
@@ -257,7 +256,7 @@ public class MainActivity extends AppCompatActivity {
             parentlayout.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    vibrate(50, 0);
+                    vibrate(longTapLength, 0);
                     timerList.add(counter);
                     counter = 0;
                     return true;
@@ -288,7 +287,7 @@ public class MainActivity extends AppCompatActivity {
             parentlayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    vibrate(50, 0);
+                    vibrate(shortTapLength, 0);
                     counter = counter + 1;
                     if (counter >= 10) {
                         counter = 0;
@@ -299,7 +298,7 @@ public class MainActivity extends AppCompatActivity {
             parentlayout.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    vibrate(100, 0);
+                    vibrate(longTapLength, 0);
                     number.add(counter);
                     counter = 0;
                     return true;
@@ -330,7 +329,7 @@ public class MainActivity extends AppCompatActivity {
                     Vibrator v7 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                     values.add(".");
                     Toast.makeText(getApplicationContext(), "dot", Toast.LENGTH_SHORT).show();
-                    vibrate(20, 0);
+                    vibrate(shortTapLength, 0);
                 }
             });
 
@@ -339,7 +338,7 @@ public class MainActivity extends AppCompatActivity {
                 public boolean onLongClick(View view) {
                     values.add("-");
                     System.out.println(values);
-                    vibrate(40, 0);
+                    vibrate(longTapLength, 0);
                     return true;
                 }
             });

@@ -21,7 +21,7 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class SmsManager extends BroadcastReceiver {
+public class  SmsManager extends BroadcastReceiver {
     private String TAG = SmsManager.class.getSimpleName();
     public String message;
 

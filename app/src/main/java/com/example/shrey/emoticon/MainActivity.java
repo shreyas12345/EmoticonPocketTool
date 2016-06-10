@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
                         number.clear();
 
                         if (operationcounter == 1) {
-                            send = firstNumber + secondNumber;
+                            send =  secondNumber;
                             digitsToVibrate(digits(send));
                             number.clear();
                             firstNumber = 0;

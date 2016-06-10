@@ -38,24 +38,24 @@ public class Manual extends AppCompatActivity {
 
         //repeated each time for different mode tutorials, didn't have other vids so used the same one as example
 
-        final VideoView video = (VideoView) findViewById(R.id.videoView);
-        String path = "android.resource://" + getPackageName() + "/" + R.raw.sample;
+        final VideoView video3 = (VideoView) findViewById(R.id.videoView);
+        path = "android.resource://" + getPackageName() + "/" + R.raw.sample;
         video.setVideoURI(Uri.parse(path));
 
         secondButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                video.start();
+                video3.start();
             }
         });
 
-        final VideoView video = (VideoView) findViewById(R.id.videoView);
-        String path = "android.resource://" + getPackageName() + "/" + R.raw.sample;
+        final VideoView video2 = (VideoView) findViewById(R.id.videoView);
+        path = "android.resource://" + getPackageName() + "/" + R.raw.sample;
         video.setVideoURI(Uri.parse(path));
         thirdButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                video.start();
+                video2.start();
             }
         });
 

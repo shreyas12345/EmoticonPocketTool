@@ -196,32 +196,29 @@ public class MainActivity extends AppCompatActivity {
                         number.clear();
 
                         if (operationcounter == 1) {
-                            send = addNumbers(firstNumber, secondNumber);
-
-                            digitsToVibrate(digits(addNumbers(firstNumber, secondNumber)));
+                            send = firstNumber + secondNumber;
+                            digitsToVibrate(digits(send));
                             number.clear();
                             firstNumber = 0;
                         }
 
                         if (operationcounter == 2) {
-                            send = subNumbers(firstNumber, secondNumber);
-                            digitsToVibrate(digits(subNumbers(firstNumber, secondNumber)));
+                            send = firstNumber - secondNumber;
+                            digitsToVibrate(digits(send));
                             number.clear();
                             firstNumber = 0;
                         }
 
                         if (operationcounter == 3) {
-                            multiplyNumbers(firstNumber, secondNumber);
-                            send = multiplyNumbers(firstNumber, secondNumber);
-                            digitsToVibrate(digits(multiplyNumbers(firstNumber, secondNumber)));
+                            send = firstNumber * secondNumber;
+                            digitsToVibrate(digits(send));
                             number.clear();
                             firstNumber = 0;
                         }
 
                         if (operationcounter == 4) {
-                            divideNumbers(firstNumber, secondNumber);
-                            send = divideNumbers(firstNumber, secondNumber);
-                            digitsToVibrate(digits(divideNumbers(firstNumber, secondNumber)));
+                            send = firstNumber / secondNumber;
+                            digitsToVibrate(digits(send));
                             number.clear();
                             firstNumber = 0;
                         }
@@ -386,7 +383,14 @@ public class MainActivity extends AppCompatActivity {
                 response.add(10);
             }
             else{
-                response.add(Integer.parseInt(numberString.substring(i, i+1)));
+                try {
+                    response.add(Integer.parseInt(numberString.substring(i, i + 1)));
+                }
+                catch (Exception e){
+                    Log.d("Messed up", "Error with operation (literal operation. Like, + - * /)");
+                    Log.d("Messed up", e.toString());
+                }
+
             }
         }
         return response;
@@ -508,8 +512,6 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
 
     public static String[] morse = {".-", "-...", "-.-.", "-..", ".", "..-.",
@@ -533,7 +535,6 @@ public class MainActivity extends AppCompatActivity {
             if (morseText.get(i) != "/") {
                 word += morseText.get(i);
                 System.out.println(word);
-
             }
             if (morseText.get(i).equals("/") || i == morseText.size() - 1) {
                 newMorseText.add(word);

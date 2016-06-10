@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
                         number.clear();
 
                         if (operationcounter == 1) {
-                            send =  secondNumber;
+                            send = firstNumber + secondNumber;
                             digitsToVibrate(digits(send));
                             number.clear();
                             firstNumber = 0;
@@ -398,6 +398,26 @@ public class MainActivity extends AppCompatActivity {
 
     public void digitsToVibrate(ArrayList response){
         Vibrator v5 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+
+        System.out.println("response = " + response);
+
+
+        //for whole numbers
+        if ((int)response.get(response.size()-2) == -2 && (int)response.get(response.size()-1) == 10) {
+            response.remove(response.size()-1);
+            response.remove(response.size()-1);
+        }
+        //for decimal numbers with no ones/greater place
+        if ((int)response.get(0)==10 && (int)response.get(1)==-2){//if 0.0
+            response.remove(0);
+        }
+
+        else
+        if((int)response.get(0)==0 && (int)response.get(1)==-2){//if 0.something
+            response.remove(0);
+        }
+
+        System.out.println("Response after modification: " + response);
 
         for (int i = 0; i < response.size(); i++){
             if ((int)response.get(i)==-1){

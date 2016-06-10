@@ -33,16 +33,16 @@ public class  SmsManager extends BroadcastReceiver {
 
 
 
-    public static String[] morse = {".-", "-...",  "-.-.", "-..",  ".", "..-.",
+    public static String[] morse = MainActivity.morse;/*{".-", "-...",  "-.-.", "-..",  ".", "..-.",
             "--.",   "....",  "..",   ".---", "-.-",  ".-..",
             "--",    "-.",    "---",  ".--.", "--.-", ".-.",
             "...",   "-",    "..-",  "...-", ".--",  "-..-",
             "-.--",  "--..", "/", ".-.-.-", "--..--", "---...",
             "..--..", ".----.", ".-..-.", "-----", ".----", "..---",
-            "...--", "....-", ".....", "-....", "--...", "---..", "----."};
-    public static String[] text = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L",
+            "...--", "....-", ".....", "-....", "--...", "---..", "----.", "-....-"}; */
+    public static String[] text = MainActivity.text; /*{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L",
             "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y",
-            "Z", " ", ".", ",", ":", "?", "'", "\"", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+            "Z", " ", ".", ",", ":", "?", "'", "\"", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "-"};*/
 
 
   //  protected Vibrator v = (Vibrator) Config.context.getSystemService(Config.context.VIBRATOR_SERVICE);
@@ -140,12 +140,12 @@ public class  SmsManager extends BroadcastReceiver {
         return response;
     }
 
-    public void digitsToVibrate(ArrayList response, Context context){
+    public void digitsToVibrate(ArrayList response, Context context){           //FOR texting answer/number with #"
         final Vibrator v = (Vibrator) context.getSystemService(context.VIBRATOR_SERVICE);
         for (int i = 0; i < response.size(); i++){
             if ((int)response.get(i)==-1){
                 //Vibrate for negative sign
-                v.vibrate(1000);
+                v.vibrate(500);
                 try {
                     Thread.sleep(1000);                 //1000 milliseconds is one second.
                 } catch (InterruptedException ex) {

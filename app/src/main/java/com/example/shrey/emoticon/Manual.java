@@ -27,7 +27,7 @@ public class Manual extends AppCompatActivity {
         secondButton = (Button) findViewById(R.id.button3);
         thirdButton = (Button) findViewById(R.id.button4);
         final VideoView video = (VideoView) findViewById(R.id.videoView);
-        String path = "android.resource://" + getPackageName() + "/" + R.raw.sample;
+        String path = "android.resource://" + getPackageName() + "/" + R.raw.changemode;
         video.setVideoURI(Uri.parse(path));
        firstButton.setOnClickListener(new View.OnClickListener() {
            @Override
@@ -39,7 +39,7 @@ public class Manual extends AppCompatActivity {
         //repeated each time for different mode tutorials, didn't have other vids so used the same one as example
 
         final VideoView video3 = (VideoView) findViewById(R.id.videoView);
-        path = "android.resource://" + getPackageName() + "/" + R.raw.sample;
+        path = "android.resource://" + getPackageName() + "/" + R.raw.calculator;
         video.setVideoURI(Uri.parse(path));
 
         secondButton.setOnClickListener(new View.OnClickListener() {
@@ -50,12 +50,30 @@ public class Manual extends AppCompatActivity {
         });
 
         final VideoView video2 = (VideoView) findViewById(R.id.videoView);
-        path = "android.resource://" + getPackageName() + "/" + R.raw.sample;
-        video.setVideoURI(Uri.parse(path));
+        path = "android.resource://" + getPackageName() + "/" + R.raw.shareanswers;
+        video2.setVideoURI(Uri.parse(path));
         thirdButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 video2.start();
+            }
+        });
+        final VideoView video4 = (VideoView) findViewById(R.id.videoView);
+        path = "android.resource://" + getPackageName() + "/" + R.raw.clockclip;
+        video4.setVideoURI(Uri.parse(path));
+        thirdButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                video4.start();
+            }
+        });
+        final VideoView video5 = (VideoView) findViewById(R.id.videoView);
+        path = "android.resource://" + getPackageName() + "/" + R.raw.morseclip;
+        video5.setVideoURI(Uri.parse(path));
+        thirdButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                video5.start();
             }
         });
 

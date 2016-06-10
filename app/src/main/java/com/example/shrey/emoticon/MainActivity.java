@@ -398,6 +398,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void digitsToVibrate(ArrayList response){
         Vibrator v5 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+
         for (int i = 0; i < response.size(); i++){
             if ((int)response.get(i)==-1){
                 //Vibrate for negative sign
@@ -520,10 +521,10 @@ public class MainActivity extends AppCompatActivity {
             "...", "-", "..-", "...-", ".--", "-..-",
             "-.--", "--..", "/", ".-.-.-", "--..--", "---...",
             "..--..", ".----.", ".-..-.", "-----", ".----", "..---",
-            "...--", "....-", ".....", "-....", "--...", "---..", "----."};
+            "...--", "....-", ".....", "-....", "--...", "---..", "----.", "-....-"};
     public static String[] text = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L",
             "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y",
-            "Z", " ", ".", ",", ":", "?", "'", "\"", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+            "Z", " ", ".", ",", ":", "?", "'", "\"", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "-"};
 
     public static String toEnglish(List<String> morseText) {
 

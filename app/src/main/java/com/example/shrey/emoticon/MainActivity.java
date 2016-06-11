@@ -22,6 +22,12 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Handler;
 
 public class MainActivity extends AppCompatActivity {
     RelativeLayout parentlayout;
@@ -31,13 +37,14 @@ public class MainActivity extends AppCompatActivity {
     int mode = 0;
     float send;
     int questionNumber;
-    int multiplechoice;
+    int multiplechoice=0;
     int y = 0;
     String phoneNumber;
     ArrayList<Integer> timerList = new ArrayList<Integer>();
     int timeCounter = 0;
     private ArrayList<String> values = new ArrayList<String>();
     Button settings;
+    TextView messageText;
 
     TextView modeText;
 
@@ -71,6 +78,8 @@ public class MainActivity extends AppCompatActivity {
 
         settings = (Button) findViewById(R.id.button);
 
+        messageText = (TextView) findViewById(R.id.messageText);
+
         modeText = (TextView)findViewById(R.id.modeText);
 
         modeText.setText("Mode: " + modeNames[mode]);
@@ -90,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(View view) {
             vibrate(shortTapLength, 0);
             counter = counter + 1;
+            messageText.setText(Integer.toString(counter));
             if (counter >= 10) {
                 counter = 0;
             }
@@ -188,6 +198,7 @@ public class MainActivity extends AppCompatActivity {
                     if (firstNumber == 0) {
                         firstNumber = createNumber(number);
                         operationcounter = 1;
+                        messageText.setText(Integer.toString(operationcounter));
                         counter = 0;
                         number.clear();
                     } else {
@@ -225,6 +236,12 @@ public class MainActivity extends AppCompatActivity {
                     }
                 } else {
                     operationcounter++;
+                    messageText.setText(Integer.toString(operationcounter));
+
+                }
+
+                if(operationcounter == 5){
+                    operationcounter = 1;
                 }
             }
 
@@ -244,6 +261,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     vibrate(shortTapLength, 0);
                     counter = counter + 1;
+                    messageText.setText(Integer.toString(counter));
                     if (counter >= 10) {
                         counter = 0;
                     }
@@ -286,6 +304,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     vibrate(shortTapLength, 0);
                     counter = counter + 1;
+                    messageText.setText(Integer.toString(counter));
                     if (counter >= 10) {
                         counter = 0;
                     }
@@ -306,14 +325,35 @@ public class MainActivity extends AppCompatActivity {
                 questionNumber = createNumber(number);
                 sendSMSMessage();
                number.clear();
+                counter = 0;
                 questionNumber = 0;
             }
 
             if (keyCode == KeyEvent.KEYCODE_MENU && event.getRepeatCount() == 0) {
                 multiplechoice++;
-                if(multiplechoice>5){
+                if(multiplechoice==0){
                     multiplechoice = 1;
                 }
+                if(multiplechoice==1){
+                    messageText.setText("A");
+                }
+                if(multiplechoice==2){
+                    messageText.setText("B");
+                }
+                if(multiplechoice==3){
+                    messageText.setText("C");
+                }
+                if(multiplechoice==4){
+                    messageText.setText("D");
+                }
+                if(multiplechoice==5){
+                    messageText.setText("E");
+                }
+                if(multiplechoice>5) {
+                    multiplechoice = 1;
+                    messageText.setText("A");
+                }
+
                 return true;
             }
 
@@ -325,7 +365,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     Vibrator v7 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                     values.add(".");
-                    Toast.makeText(getApplicationContext(), "dot", Toast.LENGTH_SHORT).show();
+                    messageText.setText("dot");
                     vibrate(shortTapLength, 0);
                 }
             });
@@ -334,7 +374,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public boolean onLongClick(View view) {
                     values.add("-");
-                    System.out.println(values);
+                    messageText.setText("end");
                     vibrate(longTapLength, 0);
                     return true;
                 }
@@ -343,25 +383,23 @@ public class MainActivity extends AppCompatActivity {
 
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
             Toast.makeText(getApplicationContext(), "backspace", Toast.LENGTH_SHORT).show();
-            int size = values.size();
-            if (size != 0) {
-                values.remove(size - 1);
-                return true;
-            } else
-                Toast.makeText(getApplicationContext(), "Enter morse code", Toast.LENGTH_LONG).show();
+            values.clear();
+            multiplechoice = 0;
         }
 
         if (keyCode == KeyEvent.KEYCODE_MENU && event.getRepeatCount() == 0) {
-            Toast.makeText(getApplicationContext(), "space", Toast.LENGTH_SHORT).show();
+           messageText.setText("space");
             values.add("/");
             return true;
         }
+
 
         if ((keyCode == KeyEvent.KEYCODE_VOLUME_UP)) {       //Go to next favorite number
             if (values.size() != 0) {
                 sendMorseMessage();
             } else {
                 Toast.makeText(getApplicationContext(), "Enter a message please", Toast.LENGTH_SHORT).show();
+                System.out.println("Error: Enter a message please.");
             }
         }
 
@@ -479,7 +517,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        for (int i = 0; i < 5; i++){
+
+        for (int i = 0; i < timeList.size(); i++){            ///CHANGED STUFF HEREE
 //            System.out.println(timeList.get(i));
             if (timeList.get(i)==-1){
                 vibrate(500, 500);
@@ -617,6 +656,7 @@ public class MainActivity extends AppCompatActivity {
             Thread.currentThread().interrupt();
         }
     }
+
 
 }
 

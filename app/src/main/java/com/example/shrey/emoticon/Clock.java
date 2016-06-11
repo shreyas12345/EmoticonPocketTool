@@ -24,9 +24,10 @@ public class Clock {
         SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
         finalTime = (sdf.format(cal.getTime()));
 
-        // if (finalTime.substring(0, 1).equals("0")){
-        //     finalTime = finalTime.substring(1, finalTime.length());
-        // }
+        if (finalTime.substring(0, 1).equals("0")){
+            finalTime = finalTime.substring(1, finalTime.length());
+        }
+
         return finalTime;
     }
 

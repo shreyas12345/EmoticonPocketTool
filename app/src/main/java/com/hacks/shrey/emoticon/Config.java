@@ -1,4 +1,6 @@
-package com.example.shrey.emoticon;
+package com.hacks.shrey.emoticon;
+
+import android.content.Context;
 
 /**
  * Created by shrey on 6/5/16.

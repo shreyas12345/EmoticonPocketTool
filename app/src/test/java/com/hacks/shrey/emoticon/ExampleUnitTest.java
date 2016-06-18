@@ -1,4 +1,4 @@
-package com.example.shrey.emoticon;
+package com.hacks.shrey.emoticon;
 
 import org.junit.Test;
 

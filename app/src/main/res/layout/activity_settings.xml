@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.shrey.emoticon.Settings"
+    tools:context="com.hacks.shrey.emoticon.Settings"
     android:background="@android:color/holo_purple">
 
 

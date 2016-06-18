@@ -1,4 +1,4 @@
-package com.example.shrey.emoticon;
+package com.hacks.shrey.emoticon;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,28 +6,17 @@ import android.content.pm.ActivityInfo;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.telephony.*;
 import android.telephony.SmsManager;
-import android.text.InputFilter;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Handler;
 
 public class MainActivity extends AppCompatActivity {
     RelativeLayout parentlayout;
@@ -70,11 +59,22 @@ public class MainActivity extends AppCompatActivity {
     int decimalLength = 25;
     int timerEndLength = 5000;
 
+    final VibrationManager vm = new VibrationManager(this);
+
+
     @Override
     protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+
+
+    //    final Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+
+     //   vm  = new VibrationManager(this);
+
+        Config.context = this;
 
         settings = (Button) findViewById(R.id.button);
 
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         parentlayout.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            vibrate(shortTapLength, 0);
+            vm.vibrate(shortTapLength, 0);
             counter = counter + 1;
             messageText.setText(Integer.toString(counter));
             if (counter >= 10) {
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
         parentlayout.setOnLongClickListener(new View.OnLongClickListener() {
         @Override
         public boolean onLongClick(View view) {
-            vibrate(longTapLength, 0);
+            vm.vibrate(longTapLength, 0);
             number.add(counter);
             counter = 0;
             return true;
@@ -152,22 +152,22 @@ public class MainActivity extends AppCompatActivity {
             modeText.setText("Mode: " + modeNames[mode]);
 
             if (mode == 0) {
-                vibrate(switchingModesLength, 450);
+                vm.vibrate(switchingModesLength, 450);
             }
             if (mode == 1) {
-                vibrate(switchingModesLength, 450);
-                vibrate(switchingModesLength, 450);
+                vm.vibrate(switchingModesLength, 450);
+                vm.vibrate(switchingModesLength, 450);
             }
             if (mode == 2) {
-                vibrate(switchingModesLength, 450);
-                vibrate(switchingModesLength, 450);
-                vibrate(switchingModesLength, 450);
+                vm.vibrate(switchingModesLength, 450);
+                vm.vibrate(switchingModesLength, 450);
+               vm.vibrate(switchingModesLength, 450);
             }
             if (mode == 3) {
-                vibrate(switchingModesLength, 450);
-                vibrate(switchingModesLength, 450);
-                vibrate(switchingModesLength, 450);
-                vibrate(switchingModesLength, 450);
+                vm.vibrate(switchingModesLength, 450);
+                vm.vibrate(switchingModesLength, 450);
+                vm.vibrate(switchingModesLength, 450);
+                vm.vibrate(switchingModesLength, 450);
             }
         }
 
@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
             parentlayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    vibrate(shortTapLength, 0);
+                    vm.vibrate(shortTapLength, 0);
                     counter = counter + 1;
                     if (counter >= 10) {
                         counter = 0;
@@ -186,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
             parentlayout.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    vibrate(longTapLength, 0);
+                  vm.vibrate(longTapLength, 0);
                     number.add(counter);
                     counter = 0;
                     return true;
@@ -259,7 +259,7 @@ public class MainActivity extends AppCompatActivity {
             parentlayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    vibrate(shortTapLength, 0);
+                  vm.vibrate(shortTapLength, 0);
                     counter = counter + 1;
                     messageText.setText(Integer.toString(counter));
                     if (counter >= 10) {
@@ -271,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
             parentlayout.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    vibrate(longTapLength, 0);
+                   vm.vibrate(longTapLength, 0);
                     timerList.add(counter);
                     counter = 0;
                     return true;
@@ -282,13 +282,13 @@ public class MainActivity extends AppCompatActivity {
 
                 if ((keyCode == KeyEvent.KEYCODE_VOLUME_UP)) {
                     createNumber(timerList);
-                    com.example.shrey.emoticon.Clock.timer(createNumber(timerList) * 1000, getApplicationContext()); //makes the timer in minutes
+                    com.hacks.shrey.emoticon.Clock.timer(createNumber(timerList) * 1000, getApplicationContext()); //makes the timer in minutes
                     timerList.clear();
                 }
             } else {
                 if ((keyCode == KeyEvent.KEYCODE_VOLUME_UP)) {
                     Vibrator v2 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-                    timeString = com.example.shrey.emoticon.Clock.getTime();
+                    timeString = com.hacks.shrey.emoticon.Clock.getTime();
                     vibrateTime(v2);
                 }
                 return true;
@@ -302,7 +302,7 @@ public class MainActivity extends AppCompatActivity {
             parentlayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    vibrate(shortTapLength, 0);
+                    vm.vibrate(shortTapLength, 0);
                     counter = counter + 1;
                     messageText.setText(Integer.toString(counter));
                     if (counter >= 10) {
@@ -314,7 +314,7 @@ public class MainActivity extends AppCompatActivity {
             parentlayout.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    vibrate(longTapLength, 0);
+                    vm.vibrate(longTapLength, 0);
                     number.add(counter);
                     counter = 0;
                     return true;
@@ -366,7 +366,7 @@ public class MainActivity extends AppCompatActivity {
                     Vibrator v7 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                     values.add(".");
                     messageText.setText("dot");
-                    vibrate(shortTapLength, 0);
+                    vm.vibrate(shortTapLength, 0);
                 }
             });
 
@@ -375,7 +375,7 @@ public class MainActivity extends AppCompatActivity {
                 public boolean onLongClick(View view) {
                     values.add("-");
                     messageText.setText("end");
-                    vibrate(longTapLength, 0);
+                    vm.vibrate(longTapLength, 0);
                     return true;
                 }
             });
@@ -460,43 +460,21 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < response.size(); i++){
             if ((int)response.get(i)==-1){
                 //Vibrate for negative sign
-                vibrate(1000, 500);
+                vm.vibrate(1000, 500);
             }
             if((int)response.get(i)==-2){
-                vibrate(50, 500);
+                vm.vibrate(50, 500);
             }
             else{
                 for (int k = 0; k < (int)response.get(i); k++){
-                    vibrate(300, 500);
+                    vm.vibrate(300, 500);
                 }
             }
-            vibrate(0, 1000);
+            vm.vibrate(0, 1000);
         }
     }
 
-
-
-    public float addNumbers(float a, float b){
-        return a+b;
-    }
-
-    public float subNumbers(float a, float b){
-        return a - b;
-    }
-
-    public float multiplyNumbers(float a, float b) {
-        return a * b;
-    }
-
-    public float divideNumbers(float a, float b){
-        return a/b;
-    }
-
-
     public void vibrateTime(Vibrator v){
-        //"04:51"
-
-
         String time = timeString;
 
         System.out.println(Integer.parseInt(time.substring(0, 1)));
@@ -521,14 +499,14 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < timeList.size(); i++){            ///CHANGED STUFF HEREE
 //            System.out.println(timeList.get(i));
             if (timeList.get(i)==-1){
-                vibrate(500, 500);
+                vm.vibrate(500, 500);
             }
             else{
                 for (int k = 0; k < timeList.get(i); k++){
-                    vibrate(100, 500);
+                    vm.vibrate(100, 500);
                 }
             }
-            vibrate(0, 500);
+            vm.vibrate(0, 500);
         }
 
 
@@ -647,15 +625,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void vibrate(int length, int threadLength){
-        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        v.vibrate(length);
-        try {
-            Thread.sleep(threadLength);                 //1000 milliseconds is one second.
-        } catch (InterruptedException ex) {
-            Thread.currentThread().interrupt();
-        }
-    }
+
 
 
 }
